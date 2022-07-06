@@ -20,7 +20,6 @@ const colors = shuffle(COLORS);
 
 createCards(colors);
 
-let currentCards = [];
 /** Shuffle array items in-place and return shuffled array. */
 
 function shuffle(items) {
@@ -62,9 +61,8 @@ function createCards(colors) {
 
   for (let color of colors) {
     let card = document.createElement("div");
-    card.setAttribute("id", "card");
-    card.style.backgroundColor = color;
-    card.classList.add("faceDown");
+    card.setAttribute("class", "card");
+    card.style.color = color;
 
     if (numCards < colors.length / 2) {
       // distributes cards evenly between the two rows
@@ -75,48 +73,64 @@ function createCards(colors) {
 
     numCards++;
 
-    card.addEventListener("click", handleCardClick);
+    card.addEventListener("click", flipCard);
   }
 }
 
 /** Flip a card face-up. */
-function flipCard(card) {
+let card1, card2;
+// let card1 = undefined;
+// let card2 = undefined;
+let pairsRemain = colors.length / 2;
+let readyToPlay = false;
+let faceUp = false;
+
+function flipCard() {
   // ... you need to write this ...
-  card.classList.remove("faceDown");
+  console.log("clicked!");
+  // if (readyToPlay === false) {
+  //   return;
+  // }
+
+  if (faceUp === false) {
+    card1 = this;
+    card1.style.backgroundImage = "none";
+    card1.style.backgroundColor = card1.style.color;
+    faceUp = true;
+  } else {
+    card2 = this;
+    card2.style.backgroundImage = "none";
+    card2.style.backgroundColor = card2.style.color;
+    readyToPlay = false;
+
+    if (card1.style.color === card2.style.color) {
+      console.log("PAIR!!");
+      card1.removeEventListener("click", flipCard);
+      card2.removeEventListener("click", flipCard);
+      pairsRemain--;
+      if (pairsRemain === 0) {
+        // We have a winner
+      } else {
+        unFlipCard(card1, card2);
+      }
+      resetCurrentPair();
+    }
+  }
 }
 
 /** Flip a card face-down. */
 
-function unFlipCard(cards) {
+function unFlipCard(card1, card2) {
   // ... you need to write this ...
-  for (let card of cards) {
-    card.classList.add("faceDown");
-  }
-  currentCards = [];
-  return currentCards;
+  setTimeout(function () {
+    card1.style.backgroundImage = "url(./qm.jpeg)";
+    card2.style.backgroundImage = "url(./qm.jpeg)";
+  }, 1000);
 }
 
 /** Handle clicking on a card: this could be first-card or second-card. */
 
 function handleCardClick(evt) {
   // ... you need to write this ...
-  if (currentCards.length < 2 && evt.target.classList.contains("faceDown")) {
-    flipCard(evt.target);
-    currentCards.push(evt.target);
-    currentCards = isMatch(currentCards);
-  }
-}
-
-function isMatch(currentCards) {
-  if (currentCards.length === 2) {
-    if (
-      currentCards[0].style.backgroundColor ===
-      currentCards[1].style.backgroundColor
-    ) {
-      currentCards = [];
-    } else {
-      setTimeout(unFlipCard, FOUND_MATCH_WAIT_MSECS, currentCards);
-    }
-  }
-  return currentCards;
+  let card;
 }

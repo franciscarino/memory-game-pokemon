@@ -23,12 +23,18 @@ body {
   align-items: center;
 }
 
-.card {
+#card {
   border-radius: 15px;
   width: 175px;
   height: 245px;
+  /* background-image: url(./qm.jpeg);
+  background-size: cover;
+  background-position: center; */
+  box-shadow: 5px 5px 6px grey;
+}
+
+.faceDown {
   background-image: url(./qm.jpeg);
   background-size: cover;
   background-position: center;
-  box-shadow: 5px 5px 5px grey;
 }
