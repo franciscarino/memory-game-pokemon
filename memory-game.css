@@ -4,6 +4,25 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  font-family: "Roboto", sans-serif;
+}
+
+h1 {
+  justify-content: center;
+  align-items: center;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  width: 75vw;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.nav-elements {
+  display: flex;
+  justify-content: space-evenly;
 }
 
 #game {
