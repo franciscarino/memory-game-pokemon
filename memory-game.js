@@ -3,25 +3,25 @@
 /** Memory game: find matching pairs of cards and flip both of them. */
 
 const FOUND_MATCH_WAIT_MSECS = 1000;
-const COLORS = [
-  "red",
-  "blue",
-  "green",
-  "orange",
-  "purple",
-  "red",
-  "blue",
-  "green",
-  "orange",
-  "purple",
+const POKEMONLIST = [
+  "bulbasaur",
+  "charmander",
+  "eevee",
+  "pikachu",
+  "squirtle",
+  "bulbasaur",
+  "charmander",
+  "eevee",
+  "pikachu",
+  "squirtle",
 ];
 
 const startButton = document.querySelector(".button");
-const colors = shuffle(COLORS);
+const pokemonList = shuffle(POKEMONLIST);
 const gameBoard = document.getElementById("game");
 let scoreDisplay = document.querySelector(".scoreDisplay");
 let bestScoreDisplay = document.querySelector(".bestScore");
-
+let currentCards = [];
 let score = 0;
 let bestScore = 0;
 
@@ -32,15 +32,14 @@ function start() {
     gameBoard.removeChild(gameBoard.firstChild); //removes all child elements in gameBoard
   }
   startButton.innerText = "Reset";
-  createCards(colors);
+  createCards(pokemonList);
 
   score = 0;
   scoreDisplay.innerText = score;
-  flippedCards = colors.length;
-  document.querySelector(".title").innerText = "MEMORY GAME";
+  flippedCards = pokemonList.length;
+  document.querySelector(".title").innerText = "GOTTA MATCH 'EM ALL!";
 }
 
-let currentCards = [];
 /** Shuffle array items in-place and return shuffled array. */
 
 function shuffle(items) {
@@ -66,7 +65,7 @@ function shuffle(items) {
  * - a click event listener for each card to handleCardClick
  */
 
-function createCards(colors) {
+function createCards(pokemonList) {
   const row1 = document.createElement("div");
   row1.setAttribute("class", "row");
   gameBoard.appendChild(row1);
@@ -78,13 +77,14 @@ function createCards(colors) {
 
   let numCards = 0;
 
-  for (let color of colors) {
+  for (let pokemon of pokemonList) {
     let card = document.createElement("div");
     card.setAttribute("id", "card");
-    card.style.backgroundColor = color;
+    // card.style.backgroundColor = color;
+    card.setAttribute("data-pokemon", pokemon);
     card.classList.add("faceDown");
 
-    if (numCards < colors.length / 2) {
+    if (numCards < pokemonList.length / 2) {
       // distributes cards evenly between the two rows
       rows[0].appendChild(card);
     } else {
@@ -97,11 +97,15 @@ function createCards(colors) {
   }
 }
 
-let flippedCards = colors.length;
+let flippedCards = pokemonList.length;
 /** Flip a card face-up. */
 function flipCard(card) {
   // ... you need to write this ...
   card.classList.remove("faceDown");
+  card.style.backgroundImage = `url(./images/${card.getAttribute(
+    "data-pokemon"
+  )}.jpg)`;
+  card.style.backgroundSize = "cover";
 }
 
 /** Flip a card face-down. */
@@ -109,6 +113,7 @@ function flipCard(card) {
 function unFlipCard(cards) {
   // ... you need to write this ...
   for (let card of cards) {
+    card.style.backgroundImage = `url(./images/pokemon.jpg)`;
     card.classList.add("faceDown");
   }
   currentCards = [];
@@ -131,10 +136,7 @@ function handleCardClick(evt) {
 
 function isMatch(currentCards) {
   if (currentCards.length === 2) {
-    if (
-      currentCards[0].style.backgroundColor ===
-      currentCards[1].style.backgroundColor
-    ) {
+    if (currentCards[0].dataset.pokemon === currentCards[1].dataset.pokemon) {
       currentCards = [];
       flippedCards -= 2;
       if (flippedCards === 0) {
