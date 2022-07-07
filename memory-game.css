@@ -100,3 +100,9 @@ h1 {
   background-size: cover;
   background-position: center;
 }
+
+.pika {
+  width: auto;
+  height: 80px;
+  align-items: center;
+}

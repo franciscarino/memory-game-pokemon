@@ -34,6 +34,8 @@ function start() {
   startButton.innerText = "Reset";
   createCards(pokemonList);
 
+  document.querySelector(".pika").remove(); // removes pikachu congrats gif
+
   score = 0;
   scoreDisplay.innerText = score;
   flippedCards = pokemonList.length;
@@ -142,6 +144,12 @@ function isMatch(currentCards) {
       if (flippedCards === 0) {
         document.querySelector(".title").innerText = "CONGRATS!";
         updateBestScore();
+
+        // add pikachu congrats gif
+        let pika = document.createElement("img");
+        pika.setAttribute("src", "./images/pikachu-happy.gif");
+        pika.classList.add("pika");
+        document.querySelector(".title").after(pika);
       }
     } else {
       setTimeout(unFlipCard, FOUND_MATCH_WAIT_MSECS, currentCards);
