@@ -5,31 +5,72 @@ body {
   align-items: center;
   flex-direction: column;
   font-family: "Roboto", sans-serif;
+  background-image: url(./images/wood.jpeg);
+  background-size: cover;
+  background-position: center;
 }
 
 h1 {
+  font-size: 40px;
   justify-content: center;
   align-items: center;
+  color: white;
+  text-shadow: 2px 2px 5px #272727;
 }
 
 .nav-container {
   display: flex;
   justify-content: space-between;
-  width: 75vw;
-  margin-left: auto;
+  width: 60vw;
+  /* margin-left: auto;
   margin-right: auto;
+  margin-bottom: 0%; */
 }
 
 .nav-elements {
   display: flex;
   justify-content: space-evenly;
+  align-items: center;
+}
+.nav-elements li {
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  font-size: 24px;
+}
+
+.button {
+  margin: 0px 20px;
+  width: 100px;
+  padding: 4px 15px;
+  border-radius: 4px;
+  border: none;
+  background-color: #0070c9;
+  color: #ffffff;
+  font-size: 24px;
+  text-align: center;
+  justify-content: center;
+  box-shadow: 2px 2px 5px #272727;
+}
+.button:hover {
+  margin: 0px 20px;
+  width: 100px;
+  padding: 4px 15px;
+  border-radius: 4px;
+  border: none;
+  background-color: #42a1ec;
+  color: #ffffff;
+  font-size: 24px;
+  text-align: center;
+  justify-content: center;
+  box-shadow: 2px 2px 5px #272727;
 }
 
 #game {
-  border: 1px solid black;
+  /* border: 1px solid black; */
   width: 80vw;
   height: 80vh;
-  margin: 20px;
+  /* margin: 20px; */
   display: flex;
   flex-direction: column;
   border-radius: 10px;
@@ -49,11 +90,11 @@ h1 {
   /* background-image: url(./qm.jpeg);
   background-size: cover;
   background-position: center; */
-  box-shadow: 5px 5px 6px grey;
+  box-shadow: 5px 5px 20px #272727;
 }
 
 .faceDown {
-  background-image: url(./qm.jpeg);
+  background-image: url(./images/qm.jpeg);
   background-size: cover;
   background-position: center;
 }

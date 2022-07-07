@@ -6,19 +6,39 @@ const FOUND_MATCH_WAIT_MSECS = 1000;
 const COLORS = [
   "red",
   "blue",
-  "green",
-  "orange",
-  "purple",
+  // "green",
+  // "orange",
+  // "purple",
   "red",
   "blue",
-  "green",
-  "orange",
-  "purple",
+  // "green",
+  // "orange",
+  // "purple",
 ];
 
+const startButton = document.querySelector(".button");
 const colors = shuffle(COLORS);
+const gameBoard = document.getElementById("game");
+let scoreDisplay = document.querySelector(".scoreDisplay");
+let bestScoreDisplay = document.querySelector(".bestScore");
 
-createCards(colors);
+let score = 0;
+let bestScore = 0;
+
+startButton.addEventListener("click", start);
+
+function start() {
+  while (gameBoard.firstChild) {
+    gameBoard.removeChild(gameBoard.firstChild); //removes all child elements in gameBoard
+  }
+  startButton.innerText = "Reset";
+  createCards(colors);
+
+  score = 0;
+  scoreDisplay.innerText = score;
+  flippedCards = colors.length;
+  document.querySelector(".title").innerText = "MEMORY GAME";
+}
 
 let currentCards = [];
 /** Shuffle array items in-place and return shuffled array. */
@@ -47,8 +67,6 @@ function shuffle(items) {
  */
 
 function createCards(colors) {
-  const gameBoard = document.getElementById("game");
-
   const row1 = document.createElement("div");
   row1.setAttribute("class", "row");
   gameBoard.appendChild(row1);
@@ -79,6 +97,7 @@ function createCards(colors) {
   }
 }
 
+let flippedCards = colors.length;
 /** Flip a card face-up. */
 function flipCard(card) {
   // ... you need to write this ...
@@ -104,6 +123,9 @@ function handleCardClick(evt) {
     flipCard(evt.target);
     currentCards.push(evt.target);
     currentCards = isMatch(currentCards);
+
+    score++;
+    scoreDisplay.innerText = score;
   }
 }
 
@@ -114,9 +136,24 @@ function isMatch(currentCards) {
       currentCards[1].style.backgroundColor
     ) {
       currentCards = [];
+      flippedCards -= 2;
+      if (flippedCards === 0) {
+        document.querySelector(".title").innerText = "CONGRATS!";
+        updateBestScore();
+      }
     } else {
       setTimeout(unFlipCard, FOUND_MATCH_WAIT_MSECS, currentCards);
     }
   }
   return currentCards;
+}
+
+function updateBestScore() {
+  if (score < localStorage.bestScore) {
+    localStorage.bestScore = score + 1;
+    bestScoreDisplay.innerText = score + 1;
+  } else {
+    localStorage.setItem("bestScore", score + 1);
+    bestScoreDisplay.innerText = score + 1;
+  }
 }
