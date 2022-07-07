@@ -6,14 +6,14 @@ const FOUND_MATCH_WAIT_MSECS = 1000;
 const COLORS = [
   "red",
   "blue",
-  // "green",
-  // "orange",
-  // "purple",
+  "green",
+  "orange",
+  "purple",
   "red",
   "blue",
-  // "green",
-  // "orange",
-  // "purple",
+  "green",
+  "orange",
+  "purple",
 ];
 
 const startButton = document.querySelector(".button");
